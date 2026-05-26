@@ -1,12 +1,42 @@
 @page "/events/{id:int}/register"
-@using EventEase.Models
+@inject SessionState Session
+@inject AttendanceTracker Attendance
 
 <h2>Register for Event</h2>
 
-<p>You are registering for event ID: @Id</p>
+<EditForm Model="Registration" OnValidSubmit="HandleSubmit">
+    <DataAnnotationsValidator />
+    <ValidationSummary />
 
-<NavLink href="/events/@Id">Back to Details</NavLink>
+    <label>Name</label>
+    <InputText @bind-Value="Registration.Name" />
+    <ValidationMessage For="@(() => Registration.Name)" />
+
+    <label>Email</label>
+    <InputText @bind-Value="Registration.Email" />
+    <ValidationMessage For="@(() => Registration.Email)" />
+
+    <button type="submit">Register</button>
+</EditForm>
+
+@if (SuccessMessage is not null)
+{
+    <p>@SuccessMessage</p>
+}
 
 @code {
     [Parameter] public int Id { get; set; }
+
+    private RegistrationModel Registration = new();
+    private string? SuccessMessage;
+
+    private void HandleSubmit()
+    {
+        Session.UserName = Registration.Name;
+        Session.Email = Registration.Email;
+
+        Attendance.MarkAttendance(Id, Registration.Email);
+
+        SuccessMessage = "Registration successful!";
+    }
 }
