@@ -29,10 +29,14 @@ else
         // Mock lookup
         var events = new List<EventModel>
         {
-            new EventModel { Id = 1, Title = "Sedona Tech Meetup", Description = "A gathering of developers." },
+            new EventModel { Id = 1, Title = "Blue Ridge Tech Meetup", Description = "A gathering of developers." },
             new EventModel { Id = 2, Title = "EventEase Launch Party", Description = "Celebrating the milestone." }
         };
 
         Event = events.FirstOrDefault(e => e.Id == Id);
     }
 }
+
+@inject AttendanceTracker Attendance
+
+<p><strong>Registered:</strong> @Attendance.GetAttendanceCount(Event.Id)</p>
