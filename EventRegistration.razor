@@ -1,0 +1,12 @@
+@page "/events/{id:int}/register"
+@using EventEase.Models
+
+<h2>Register for Event</h2>
+
+<p>You are registering for event ID: @Id</p>
+
+<NavLink href="/events/@Id">Back to Details</NavLink>
+
+@code {
+    [Parameter] public int Id { get; set; }
+}
