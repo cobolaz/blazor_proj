@@ -3,13 +3,14 @@
 
 <h2>Events</h2>
 
-@foreach (var ev in Events)
-{
-    <div class="event-list-item">
-        <h3>@ev.Title</h3>
-        <NavLink href="/events/@ev.Id">View Details</NavLink>
-    </div>
-}
+<Virtualize Items="Events" Context="ev">
+    <EventCard Event="ev" />
+</Virtualize>
+
+<div class="event-list-item">
+    <h3>@ev.Title</h3>
+    <NavLink href="/events/@ev.Id">View Details</NavLink>
+</div>
 
 @code {
     private List<EventModel> Events = new()
