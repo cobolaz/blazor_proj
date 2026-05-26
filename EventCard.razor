@@ -1,6 +1,17 @@
 @using EventEase.Models
 
 <div class="event-card">
+    <input @bind="Event.Title" placeholder="Event Title" />
+
+    <textarea @bind="Event.Description"
+              placeholder="Description"></textarea>
+
+    <input type="date" @bind="Event.Date" />
+
+    <input @bind="Event.Location" placeholder="Location" />
+
+    <hr />
+
     <h3>@Event.Title</h3>
     <p>@Event.Description</p>
     <p><strong>Date:</strong> @Event.Date.ToShortDateString()</p>
@@ -8,6 +19,5 @@
 </div>
 
 @code {
-    [Parameter]
-    public EventModel Event { get; set; } = default!;
+    [Parameter] public EventModel Event { get; set; } = default!;
 }
